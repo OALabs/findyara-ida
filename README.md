@@ -13,13 +13,16 @@ This plugin is copied from David's excellent [findcrypt-yara plugin](https://git
 
 ## Usage
 ### Launch the plugin 
-The plugin can be launched from the menu using `Edit->Plugins->FindYara` or using the hot-key combination `ctl-alt-y`.
+The plugin can be launched from the menu using `Edit->Plugins->FindYara`. Or the plugin can be quickly launched using the hot-key combination `ctl-alt-y`.
+![Launch plugin](/docs/launch_plugin.png?raw=true "")
 
 ### Select a Yara file to scan with
 When the plugin launches it will open a file selection dialogue box. You will need to use this to choose the yara file that you want to scan with.
+![Select file](/docs/pick_yara_file.png?raw=true "")
 
 ### View matches
 All of the strings from the yara rule that match the binary will be displayed along with the match locations.
+![Scan results](/docs/scan_results.png?raw=true "")
  
 ## Acknowledgments
 * A huge thank you to David Berard (@_p0ly_) - [Follow him on GitHub here](https://github.com/polymorf/)! This is mostly his code and he gets all the credit for the original plugin framework.
