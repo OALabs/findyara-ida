@@ -1,5 +1,5 @@
 # FindYara
-Use this IDA python plugin to scan binary with yara rules. All the yara rule matches will be listed with their offset so you can quickly hop to them!  
+Use this IDA python plugin to scan your binary with yara rules. All the yara rule matches will be listed with their offset so you can quickly hop to them!  
 
 **:beers: All credit for this plugin and the code goes to David Berard (@_p0ly_) :beers:**
 
