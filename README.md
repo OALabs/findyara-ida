@@ -1,13 +1,14 @@
 # FindYara
 Use this IDA python plugin to scan binary with yara rules. All the yara rule matches will be listed with their offset so you can quickly hop to them!  
 
-**All credit for this plugin and the code goes to David Berard (@_p0ly_)!!** 
- This plugin is copied from David's excellent findcrypt-yara plugin [https://github.com/polymorf/findcrypt-yara](https://github.com/polymorf/findcrypt-yara). This plugin just extends his to use any yara rule. 
+**:beers: All credit for this plugin and the code goes to David Berard (@_p0ly_) :beers:**
+
+This plugin is copied from David's excellent [findcrypt-yara plugin](https://github.com/polymorf/findcrypt-yara). This plugin just extends his to use any yara rule. 
 
 ## Installation 
 * Install python-yara 
- *  Using pip: `pip install python-yara`
- *  Other methods: [https://pypi.python.org/pypi/yara-python](https://pypi.python.org/pypi/yara-python) 
+  * Using pip: `pip install python-yara`
+  * Other methods: [https://pypi.python.org/pypi/yara-python](https://pypi.python.org/pypi/yara-python) 
 * Copy FindYara.py to your IDA "plugins" directory
 
 ## Usage
@@ -21,8 +22,8 @@ When the plugin launches it will open a file selection dialogue box. You will ne
 All of the strings from the yara rule that match the binary will be displayed along with the match locations.
  
 ## Acknowledgments
-* A huge thank you to David Berard (@_p0ly_) - [https://github.com/polymorf/](Follow him on GitHub here)! This is mostly his code and he gets all the credit for the original plugin framework.
-* Also, hit tip to Alex Hanel @nullandnull - [https://github.com/alexander-hanel](Follow him on GitHub here). Alex helped me sort through how the IDC methods are being used. His [https://leanpub.com/IDAPython-Book](IDA Python book) is a fantastic reference!!
+* A huge thank you to David Berard (@_p0ly_) - [Follow him on GitHub here](https://github.com/polymorf/)! This is mostly his code and he gets all the credit for the original plugin framework.
+* Also, hit tip to Alex Hanel @nullandnull - [Follow him on GitHub here](https://github.com/alexander-hanel). Alex helped me sort through how the IDC methods are being used. His [IDA Python book](https://leanpub.com/IDAPython-Book) is a fantastic reference!!
 
 ## Feedback / Help
 * Any questions, comments, requests hit me up on twitter: @herrcore 
