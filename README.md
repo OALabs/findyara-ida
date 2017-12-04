@@ -7,7 +7,7 @@ This plugin is copied from David's excellent [findcrypt-yara plugin](https://git
 
 ## Installation 
 * Install python-yara 
-  * Using pip: `pip install python-yara`
+  * Using pip: `pip install yara-python`
   * Other methods: [https://pypi.python.org/pypi/yara-python](https://pypi.python.org/pypi/yara-python) 
 * Copy FindYara.py to your IDA "plugins" directory
 
