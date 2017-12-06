@@ -11,6 +11,9 @@ This plugin is copied from David's excellent [findcrypt-yara plugin](https://git
   * Other methods: [https://pypi.python.org/pypi/yara-python](https://pypi.python.org/pypi/yara-python) 
 * Copy FindYara.py to your IDA "plugins" directory
 
+## Watch the tutorial video!
+[![Using Yara Rules With IDA Pro](http://img.youtube.com/vi/zAKi9KWYyfM/0.jpg)](http://www.youtube.com/watch?v=zAKi9KWYyfM "Using Yara Rules With IDA Pro")
+
 ## Usage
 ### Launch the plugin 
 The plugin can be launched from the menu using `Edit->Plugins->FindYara`. Or the plugin can be quickly launched using the hot-key combination `ctl-alt-y`.
