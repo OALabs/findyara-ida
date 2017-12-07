@@ -6,7 +6,7 @@ Use this IDA python plugin to scan your binary with yara rules. All the yara rul
 This plugin is copied from David's excellent [findcrypt-yara plugin](https://github.com/polymorf/findcrypt-yara). This plugin just extends his to use any yara rule. 
 
 ## Installation 
-* Install python-yara 
+* Install yara-python 
   * Using pip: `pip install yara-python`
   * Other methods: [https://pypi.python.org/pypi/yara-python](https://pypi.python.org/pypi/yara-python) 
 * Copy FindYara.py to your IDA "plugins" directory
