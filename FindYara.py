@@ -7,7 +7,7 @@
 ## This plugin is simply a copy of his excellent findcrypt-yara plugin only expanded
 ## use allow searching for any yara rules.
 ##
-##  ____ __ __  __ ____   _  _  ___  ____   ___ 
+##  ____ __ __  __ ____   _  _  ___  ____   ___
 ## ||    || ||\ || || \\  \\// // \\ || \\ // \\
 ## ||==  || ||\\|| ||  ))  )/  ||=|| ||_// ||=||
 ## ||    || || \|| ||_//  //   || || || \\ || ||
@@ -100,7 +100,7 @@ p_initialized = False
 
 class YaraSearchResultChooser(idaapi.Choose2):
     def __init__(self, title, items, flags=0, width=None, height=None, embedded=False, modal=False):
-        Choose2.__init__(
+        idaapi.Choose2.__init__(
             self,
             title,
             [
@@ -126,7 +126,7 @@ class YaraSearchResultChooser(idaapi.Choose2):
 
     def OnGetLine(self, n):
         res = self.items[n]
-        res = [atoa(res[0]), res[1], res[2], res[3]]
+        res = [idc.atoa(res[0]), res[1], res[2], res[3]]
         return res
 
     def OnGetSize(self):
@@ -166,7 +166,7 @@ class FindYara_Plugin_t(idaapi.plugin_t):
                 None,
                 0))
             idaapi.attach_action_to_menu("Edit/FindYara", "FindYara", idaapi.SETMENU_APP)
-            ## Print a nice header 
+            ## Print a nice header
             print("=" * 80)
             print("  ____ __ __  __ ____   _  _  ___  ____   ___ ")
             print(" ||    || ||\\ || || \\\\  \\\\// // \\\\ || \\\\ // \\\\")
@@ -244,7 +244,7 @@ class FindYara_Plugin_t(idaapi.plugin_t):
         return result, offsets
 
     def run(self, arg):
-        yara_file = AskFile(0, "*.yara", 'Choose Yara File...')
+        yara_file = idc.AskFile(0, "*.yara", 'Choose Yara File...')
         if yara_file == None:
             print "ERROR: You must choose a yara file to scan with"
         else:
