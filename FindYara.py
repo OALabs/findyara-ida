@@ -28,7 +28,7 @@ import operator
 import yara
 import string
 
-VERSION = "1.0"
+VERSION = "1.1"
 
 try:
     class Kp_Menu_Context(idaapi.action_handler_t):
