@@ -124,7 +124,7 @@ class YaraSearchResultChooser(idaapi.Choose):
 
     def OnSelectLine(self, n):
         self.selcount += 1
-        idc.Jump(self.items[n][0])
+        ida_kernwin.jumpto(self.items[n][0])
 
     def OnGetLine(self, n):
         res = self.items[n]
