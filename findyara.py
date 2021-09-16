@@ -35,7 +35,7 @@ __AUTHOR__ = '@herrcore'
 
 PLUGIN_NAME = "FindYara"
 PLUGIN_HOTKEY = "Ctrl-Alt-Y"
-VERSION = '3.2.0'
+VERSION = '3.3.0'
 
 try:
     class Kp_Menu_Context(idaapi.action_handler_t):
