@@ -20,7 +20,7 @@ All rule matches are displayed in a selection box that allows you to double clic
 Before using the plugin you must install the python Yara module in your IDA environment. The simplest way to do this is to use pip from a shell outside of IDA.  
 `pip install yara-python`
 
-Once you have the yara module installed simply copy the latest release of [`yarafind.py`](https://github.com/OALabs/findyara-ida/releases) into your IDA plugins directory and you are ready to start Yara scanning!
+Once you have the yara module installed simply copy the latest release of [`findyara.py`](https://github.com/OALabs/findyara-ida/releases) into your IDA plugins directory and you are ready to start Yara scanning!
 
 ## ❗Compatibility Issues
 FindYara has been developed for use with the __IDA 7+__ and __Python 3__ it is not backwards compatible. 
