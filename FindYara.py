@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 ########################################################################################
 ##
 ## All credit to David Berard (@_p0ly_) https://github.com/polymorf/findcrypt-yara
@@ -14,36 +12,46 @@
 ##
 ## IDA plugin for Yara scanning... find those Yara matches!
 ##
-## Add this this file to your IDA "plugins" directory
-## Activate using ctl+alt+Y or Edit->Plugins->FindYara
+## Updated for IDA 7.xx and Python 3
 ##
-## Author: @herrcore
+## To install:
+##      Copy script into plugins directory, i.e: C:\Program Files\<ida version>\plugins
+##
+## To run:
+##      Ctl+Alt+Y or Edit->Plugins->FindYara
+##      Use the dialogue box to select your yara rule file and start scanning!
 ##
 ########################################################################################
 
 import idaapi
 import idautils
+import ida_bytes
 import idc
 import ida_kernwin
-import operator
 import yara
 import string
-import chardet
 
-VERSION = "1.1"
+__AUTHOR__ = '@herrcore'
+
+PLUGIN_NAME = "FindYara"
+PLUGIN_HOTKEY = "Ctrl-Alt-Y"
+VERSION = '3.0.0'
 
 try:
     class Kp_Menu_Context(idaapi.action_handler_t):
         def __init__(self):
             idaapi.action_handler_t.__init__(self)
 
+
         @classmethod
         def get_name(self):
             return self.__name__
 
+
         @classmethod
         def get_label(self):
             return self.label
+
 
         @classmethod
         def register(self, plugin, label):
@@ -56,6 +64,7 @@ try:
                 instance  # Handler. Called when activated, and for updating
             ))
 
+
         @classmethod
         def unregister(self):
             """Unregister the action.
@@ -63,16 +72,19 @@ try:
             """
             idaapi.unregister_action(self.get_name())
 
+
         @classmethod
         def activate(self, ctx):
             # dummy method
             return 1
+
 
         @classmethod
         def update(self, ctx):
             if ctx.form_type == idaapi.BWN_DISASM:
                 return idaapi.AST_ENABLE_FOR_FORM
             return idaapi.AST_DISABLE_FOR_FORM
+
 
     class Searcher(Kp_Menu_Context):
         def activate(self, ctx):
@@ -81,20 +93,6 @@ try:
 
 except:
     pass
-
-def lrange(num1, num2=None, step=1):
-    op = operator.__lt__
-    if num2 is None:
-        num1, num2 = 0, num1
-    if num2 < num1:
-        if step > 0:
-            num1 = num2
-        op = operator.__gt__
-    elif step < 0:
-        num1 = num2
-    while op(num1, num2):
-        yield num1
-        num1 += step
 
 p_initialized = False
 
@@ -107,9 +105,10 @@ class YaraSearchResultChooser(idaapi.Choose):
             title,
             [
                 ["Address", idaapi.Choose.CHCOL_HEX|10],
-                ["Rule Name", idaapi.Choose.CHCOL_PLAIN|40],
+                ["Rule Name", idaapi.Choose.CHCOL_PLAIN|20],
+                ["Match Name", idaapi.Choose.CHCOL_PLAIN|20],
                 ["Match", idaapi.Choose.CHCOL_PLAIN|40],
-                ["Type", idaapi.Choose.CHCOL_PLAIN|40],
+                ["Type", idaapi.Choose.CHCOL_PLAIN|10],
             ],
             flags=flags,
             width=width,
@@ -119,21 +118,26 @@ class YaraSearchResultChooser(idaapi.Choose):
         self.selcount = 0
         self.n = len(items)
 
+
     def OnClose(self):
         return
+
 
     def OnSelectLine(self, n):
         self.selcount += 1
         ida_kernwin.jumpto(self.items[n][0])
 
+
     def OnGetLine(self, n):
         res = self.items[n]
-        res = [idc.atoa(res[0]), res[1], res[2], res[3]]
+        res = [idc.atoa(res[0]), res[1], res[2], res[3], res[4]]
         return res
+
 
     def OnGetSize(self):
         n = len(self.items)
         return n
+
 
     def show(self):
         return self.Show() >= 0
@@ -143,9 +147,9 @@ class YaraSearchResultChooser(idaapi.Choose):
 #--------------------------------------------------------------------------
 class FindYara_Plugin_t(idaapi.plugin_t):
     comment = "FindYara plugin for IDA Pro (using yara framework)"
-    help = "Still todo..."
-    wanted_name = "FindYara"
-    wanted_hotkey = "Ctrl-Alt-y"
+    help = ""
+    wanted_name = PLUGIN_NAME
+    wanted_hotkey = PLUGIN_HOTKEY
     flags = idaapi.PLUGIN_KEEP
 
 
@@ -171,9 +175,9 @@ class FindYara_Plugin_t(idaapi.plugin_t):
             ## Print a nice header
             print("=" * 80)
             print("  ____ __ __  __ ____   _  _  ___  ____   ___ ")
-            print(" ||    || ||\\ || || \\\\  \\\\// // \\\\ || \\\\ // \\\\")
-            print(" ||==  || ||\\\\|| ||  ))  )/  ||=|| ||_// ||=||")
-            print(" ||    || || \\|| ||_//  //   || || || \\\\ || ||")
+            print(r" ||    || ||\ || || \\  \\// // \\ || \\ // \\")
+            print(r" ||==  || ||\\|| ||  ))  )/  ||=|| ||_// ||=||")
+            print(r" ||    || || \|| ||_//  //   || || || \\ || ||")
             print("\nFindYara v{0} by @herrcore".format(VERSION))
             print("* All credit to David Berard (@_p0ly_) for the code! *")
             print("* This is a slightly modified version of findcrypt-yara *")
@@ -181,6 +185,7 @@ class FindYara_Plugin_t(idaapi.plugin_t):
             print("=" * 80)
 
         return idaapi.PLUGIN_KEEP
+
 
     def term(self):
         pass
@@ -193,6 +198,7 @@ class FindYara_Plugin_t(idaapi.plugin_t):
                 va_offset = seg[0] + (offset - seg[1])
         return va_offset
 
+
     def search(self, yara_file):
         memory, offsets = self._get_memory()
         try:
@@ -204,49 +210,48 @@ class FindYara_Plugin_t(idaapi.plugin_t):
         c = YaraSearchResultChooser("FindYara scan results", values)
         r = c.show()
 
+
     def yarasearch(self, memory, offsets, rules):
-        print(">>> Start yara search")
         values = list()
         matches = rules.match(data=memory)
         for rule_match in matches:
             name = rule_match.rule
-            #print "%s => %d matches" % (name, len(match.strings))
             for match in rule_match.strings:
-                #print "\t 0x%08x : %s" % (self.toVirtualAddress(string[0],offsets),repr(string[2]))
-
-                match_type = 'binary'
-                match_encoding = chardet.detect(match[2])['encoding']
-                if match_encoding == 'ascii':
-                	match_string = match[2].decode('ascii')
-                	match_type = 'ascii string'
-                if match_encoding == 'utf-16':
-                	match_string = match[2].decode('utf-16')
-                	match_type = 'wide string'
-                if match_type == 'binary':
-                	match_string = " ".join("{:02x}".format(ord(c)) for c in match_string)
+                match_string = match[2]
+                match_type = 'unknown'
+                if all(chr(c) in string.printable for c in match_string):
+                    match_string = match_string.decode('utf-8')
+                    match_type = 'ascii string'
+                elif all(chr(c) in string.printable+'\x00' for c in match_string) and (b'\x00\x00' not in match_string):
+                     match_string = match_string.decode('utf-16')
+                     match_type = 'wide string'
+                else:
+                    match_string = " ".join("{:02x}".format(c) for c in match_string)
+                    match_type = 'binary'
 
                 value = [
                     self.toVirtualAddress(match[0], offsets),
                     name,
+                    match[1],
                     match_string,
                     match_type
                 ]
                 values.append(value)
-        print("<<< end yara search")
         return values
 
+
     def _get_memory(self):
-        result = ""
+        result = bytearray()
         segment_starts = [ea for ea in idautils.Segments()]
         offsets = []
         start_len = 0
         for start in segment_starts:
-            end = idc.get_segm_end(start)
-            for ea in lrange(start, end):
-                result += chr(idc.get_wide_byte(ea))
+            end = idc.get_segm_attr(start, idc.SEGATTR_END)
+            result += ida_bytes.get_bytes(start, end - start)
             offsets.append((start, start_len, len(result)))
             start_len = len(result)
-        return result, offsets
+        return bytes(result), offsets
+
 
     def run(self, arg):
         yara_file = ida_kernwin.ask_file(0, "*.yara", 'Choose Yara File...')
