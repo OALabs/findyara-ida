@@ -2,7 +2,7 @@
 <img src="https://user-images.githubusercontent.com/5906222/133688671-d830f2e2-b8d4-4238-a5dd-02808984ae36.gif" max-height="600">
 </p>
 
-[![GitHub release](https://img.shields.io/github/v/release/oalabs/findyara-ida.svg)](https://github.com/OALabs/yarafind-ida/releases) [![Chat](https://img.shields.io/badge/chat-Discord-blueviolet)](https://discord.gg/cw4U3WHvpn) 
+[![GitHub release](https://img.shields.io/github/v/release/oalabs/findyara-ida.svg)](https://github.com/OALabs/findyara-ida/releases) [![Chat](https://img.shields.io/badge/chat-Discord-blueviolet)](https://discord.gg/cw4U3WHvpn) 
 
 # FindYara
 Use this IDA python plugin to scan your binary with yara rules. All the yara rule matches will be listed with their offset so you can quickly jump to them!  
@@ -20,7 +20,7 @@ All rule matches are displayed in a selection box that allows you to double clic
 Before using the plugin you must install the python Yara module in your IDA environment. The simplest way to do this is to use pip from a shell outside of IDA.  
 `pip install yara-python`
 
-Once you have the yara module installed simply copy the latest release of [`yarafind.py`](https://github.com/OALabs/yarafind-ida/releases) into your IDA plugins directory and you are ready to start Yara scanning!
+Once you have the yara module installed simply copy the latest release of [`yarafind.py`](https://github.com/OALabs/findyara-ida/releases) into your IDA plugins directory and you are ready to start Yara scanning!
 
 ## ❗Compatibility Issues
 FindYara has been developed for use with the __IDA 7+__ and __Python 3__ it is not backwards compatible. 
