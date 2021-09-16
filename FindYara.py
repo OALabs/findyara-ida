@@ -35,7 +35,7 @@ __AUTHOR__ = '@herrcore'
 
 PLUGIN_NAME = "FindYara"
 PLUGIN_HOTKEY = "Ctrl-Alt-Y"
-VERSION = '3.1.0'
+VERSION = '3.2.0'
 
 try:
     class Kp_Menu_Context(idaapi.action_handler_t):
@@ -82,8 +82,8 @@ try:
         @classmethod
         def update(self, ctx):
             if ctx.form_type == idaapi.BWN_DISASM:
-                return idaapi.AST_ENABLE_FOR_FORM
-            return idaapi.AST_DISABLE_FOR_FORM
+                return idaapi.AST_ENABLE_FOR_WIDGET
+            return idaapi.AST_DISABLE_FOR_WIDGET
 
 
     class Searcher(Kp_Menu_Context):
