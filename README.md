@@ -2,7 +2,7 @@
 <img src="https://user-images.githubusercontent.com/5906222/133688671-d830f2e2-b8d4-4238-a5dd-02808984ae36.gif">
 </p>
 
-[![GitHub release](https://img.shields.io/github/v/release/oalabs/findyara-ida.svg)](https://github.com/OALabs/findyara-ida/releases) [![Chat](https://img.shields.io/badge/chat-Discord-blueviolet)](https://discord.gg/cw4U3WHvpn) 
+[![GitHub release](https://img.shields.io/github/v/release/oalabs/findyara-ida.svg)](https://github.com/OALabs/findyara-ida/releases) [![Chat](https://img.shields.io/badge/chat-Discord-blueviolet)](https://discord.gg/cw4U3WHvpn) [![Support](https://img.shields.io/badge/Support-Patreon-FF424D)](https://www.patreon.com/oalabs)
 
 # FindYara
 Use this IDA python plugin to scan your binary with yara rules. All the yara rule matches will be listed with their offset so you can quickly jump to them!  
