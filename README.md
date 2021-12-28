@@ -16,9 +16,16 @@ The plugin can be launched from the menu using `Edit->Plugins->FindYara` or usin
 
 All rule matches are displayed in a selection box that allows you to double click the matches and jump to their location in the binary. 
 
+### Rules Not Matching Binary
+FindYara scans the loaded PE sections in IDA, this means that yara rules that include matches on the PE header **will not match in IDA**. IDA does not load the PE header as a scannable section. Also, if you have not selected `Load resources` when loading your binary in IDA then the resources section will be unavailable for scanning. 
+
+This can lead to frustrating situations where a yara rule will match outside of IDA but not when using FindYara. If you encounter this try editing the yara rule to remove the matches on the PE header and resources sections.
+
 ## Installing FindYara 
 Before using the plugin you must install the python Yara module in your IDA environment. The simplest way to do this is to use pip from a shell outside of IDA.  
-`pip install yara-python`
+`pip install yara-python`. 
+
+**Do not install the `yara` module by mistake.** The `yara` python module will mess with your `yara-python` module so it must be uninstalled if it was installed by mistake.
 
 Once you have the yara module installed simply copy the latest release of [`findyara.py`](https://github.com/OALabs/findyara-ida/releases) into your IDA plugins directory and you are ready to start Yara scanning!
 
