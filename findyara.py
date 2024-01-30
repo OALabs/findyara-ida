@@ -214,29 +214,30 @@ class FindYara_Plugin_t(idaapi.plugin_t):
     def yarasearch(self, memory, offsets, rules):
         values = list()
         matches = rules.match(data=memory)
-        for rule_match in matches:
-            name = rule_match.rule
-            for match in rule_match.strings:
-                match_string = match[2]
-                match_type = 'unknown'
-                if all(chr(c) in string.printable for c in match_string):
-                    match_string = match_string.decode('utf-8')
-                    match_type = 'ascii string'
-                elif all(chr(c) in string.printable+'\x00' for c in match_string) and (b'\x00\x00' not in match_string):
-                     match_string = match_string.decode('utf-16')
-                     match_type = 'wide string'
-                else:
-                    match_string = " ".join("{:02x}".format(c) for c in match_string)
-                    match_type = 'binary'
 
-                value = [
-                    self.toVirtualAddress(match[0], offsets),
-                    name,
-                    match[1],
-                    match_string,
-                    match_type
-                ]
-                values.append(value)
+        for matchobj in matches:
+            for strn_matchobj in matchobj.strings:
+                name = matchobj.rule
+                for strn_matchobj_inst in strn_matchobj.instances:
+                    if name.endswith("_API"):
+                        try:
+                            name = name + "_" + idc.GetString(self.toVirtualAddress(strn_matchobj_inst.offset, offsets))
+                        except:
+                            pass
+                    value = [
+                        self.toVirtualAddress(strn_matchobj_inst.offset, offsets),
+                        matchobj.namespace,
+                        name + "_" + hex(self.toVirtualAddress(strn_matchobj_inst.offset, offsets)).lstrip("0x").rstrip("L").upper(),
+                        strn_matchobj.identifier,
+                        repr(strn_matchobj_inst.matched_data)
+                    ]
+
+                    idaapi.set_name(value[0], name
+                        + "_"
+                        + hex(self.toVirtualAddress(strn_matchobj_inst.offset, offsets)).lstrip("0x").rstrip("L").upper()
+                        , 0)
+                    values.append(value)
+
         return values
 
 
